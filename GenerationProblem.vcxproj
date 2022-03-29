@@ -169,13 +169,10 @@
     <ClInclude Include="VBO.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="brdf.frag" />
-    <None Include="final.vert" />
-    <None Include="shadow.frag" />
-    <None Include="shadow.vert" />
+    <None Include="default.frag" />
+    <None Include="default.vert" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="CubeMeshSharp.txt" />
     <Text Include="CubeMeshSmooth.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

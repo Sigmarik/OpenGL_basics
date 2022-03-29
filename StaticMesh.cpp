@@ -10,7 +10,7 @@ void StaticMesh::recalculateTangents() {
 }
 
 void StaticMesh::updateBuffers() {
-	std::cout << "Pushing " << vertices.size() << " vertices and " << faces.size() << " faces" << std::endl;
+	//std::cout << "Pushing " << vertices.size() << " vertices and " << faces.size() << " faces" << std::endl;
 	vao = VAO();
 	vao.bind();
 	vbo = VBO(vertices);
@@ -140,7 +140,7 @@ void StaticMesh::loadFile(const char* fname) {
 
 StaticMesh::StaticMesh() {
 	location = glm::vec3(0.0, 0.0, 0.0);
-	rotation = glm::vec3(0.0, 0.0, 0.0);
+	rotation = glm::mat4(1.0);
 	scale = glm::vec3(1.0, 1.0, 1.0);
 	updateBuffers();
 }
@@ -148,10 +148,10 @@ StaticMesh::StaticMesh() {
 void StaticMesh::draw(Camera& camera, Shader& shader) {
 	shader.activate();
 	vao.bind();
-	GLuint tformMatrixUniID = glGetUniformLocation(shader.id, "objectTranslateMatrix");
 	camera.pushMatrices(shader);
-	glUniformMatrix4fv(tformMatrixUniID, 1, GL_FALSE, glm::value_ptr(
-		glm::translate(location) * glm::scale(scale)));
+	glUniformMatrix4fv(shader.uniform("objectTranslateMatrix"), 1, GL_FALSE, glm::value_ptr(glm::translate(location)));
+	glUniformMatrix4fv(shader.uniform("objectScaleMatrix"), 1, GL_FALSE, glm::value_ptr(glm::scale(scale)));
+	glUniformMatrix4fv(shader.uniform("objectRotationMatrix"), 1, GL_FALSE, glm::value_ptr(rotation));
 	glDrawElements(GL_TRIANGLES, faces.size(), GL_UNSIGNED_INT, 0);
 	vao.unbind();
 }

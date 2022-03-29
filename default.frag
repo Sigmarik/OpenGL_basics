@@ -1,6 +1,6 @@
 #version 330 core
 
-// This is NOT a BRDF lighting model, it only shows solid color and that's it!
+// This is NOT a BRDF lighting model, it only shows semi-solid color and that's it!
 
 in vec3 worldPosition;
 in vec3 normal;

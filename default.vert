@@ -14,11 +14,12 @@ out vec3 tangent;
 uniform mat4 cameraMatrix = mat4(1.0);
 uniform mat4 objectRotationMatrix = mat4(1.0);
 uniform mat4 objectTranslateMatrix = mat4(1.0);
+uniform mat4 objectScaleMatrix = mat4(1.0);
 
 void main() {
-	worldPosition = (/*objectTranslateMatrix * */ /*objectRotationMatrix * */vec4(vertexPosition, 1.0)).xyz;
+	worldPosition = (objectTranslateMatrix * objectRotationMatrix * objectScaleMatrix * vec4(vertexPosition, 1.0)).xyz;
 	uv = vertexUV;
-	normal = (/*objectRotationMatrix * */vec4(vertexNormal, 1.0)).xyz;
-	tangent = (/*objectRotationMatrix * */vec4(vertexTangent, 1.0)).xyz;
+	normal = (objectRotationMatrix * vec4(vertexNormal, 1.0)).xyz;
+	tangent = (objectRotationMatrix * vec4(vertexTangent, 1.0)).xyz;
 	gl_Position = cameraMatrix * vec4(worldPosition, 1.0);
 }

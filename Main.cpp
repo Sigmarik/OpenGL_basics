@@ -27,7 +27,7 @@ int main() {
 	gladLoadGL();
 	glViewport(0, 0, 800, 800);
 
-	Shader opaqueShader("final.vert", "brdf.frag");
+	Shader opaqueShader("default.vert", "default.frag");
 
 	Camera camera = Camera(CAMERA_PERSPECTIVE);
 
@@ -47,16 +47,11 @@ int main() {
 		float deltaTime = newTime - time;
 		time = newTime;
 		tick++;
-
 		glfwSetWindowTitle(window, ("Game window, FPS:" + std::to_string(1.0 / deltaTime)).c_str());
+
 
 		glClearColor(0.1, 0.2, 0.4, 1.0);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-		if (tick % 100 == 0) {
-			std::cout << "Camera position: " << camera.position.x << ' ' << 
-				camera.position.y << ' ' << camera.position.z << std::endl;
-		}
 
 		cube.draw(camera, opaqueShader);
 
